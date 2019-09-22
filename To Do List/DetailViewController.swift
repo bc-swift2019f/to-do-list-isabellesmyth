@@ -10,6 +10,7 @@ import UIKit
 
 class DetailViewController: UIViewController {
 
+    @IBOutlet weak var saveBarButton: UIBarButtonItem!
     @IBOutlet weak var toDoField: UITextField!
     var toDoItem: String?
     override func viewDidLoad() {
@@ -18,8 +19,27 @@ class DetailViewController: UIViewController {
         if let toDoItem = toDoItem {
             toDoField.text = toDoItem
         }
+        enableDisableSaveButton()
+        toDoField.becomeFirstResponder()
 
         // Do any additional setup after loading the view.
+    }
+    
+    
+    func enableDisableSaveButton() {
+        if let toDoFieldCount = toDoField.text?.count, toDoFieldCount > 0 {
+            saveBarButton.isEnabled = true
+        }
+        else {
+            saveBarButton.isEnabled = false
+        }
+    }
+    
+    
+    @IBAction func toDoFieldChanged(_ sender: UITextField) {
+        enableDisableSaveButton()
+        
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
